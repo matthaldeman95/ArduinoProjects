@@ -43,7 +43,7 @@ void ReadDs3231(){
   byte second, minute, hour, date, month, year;
   second = Clock.getSecond();
   minute=Clock.getMinute();
-  //hour=Clock.getHour(h12, PM);
+  hour=Clock.getHour(h12, PM);
   date = Clock.getDate();
   month = Clock.getMonth(Century);
   year=Clock.getYear();
@@ -53,7 +53,6 @@ void ReadDs3231(){
   //Serial.print(year);  Serial.print("     ");
   //Serial.print(hour);  Serial.print(":");  Serial.print(minute);  Serial.print(":");  Serial.println(second);
   matrix0.clear();
-  hour = 12;
   float htens = (hour)/10;
   if(htens < 1){
      matrix0.writeDigitNum(0x01, hour);
