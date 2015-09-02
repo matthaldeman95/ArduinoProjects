@@ -1,9 +1,9 @@
-
+//Initialize I2C comm
 #include <Wire.h> 
 
+//Initialize Adafruit LED Backpacks
 #include "Adafruit_LEDBackpack.h"
 #include "Adafruit_GFX.h"
-
 Adafruit_7segment matrix0 = Adafruit_7segment();
 Adafruit_7segment matrix1 = Adafruit_7segment();
 Adafruit_8x8matrix matrix2 = Adafruit_8x8matrix();
@@ -12,7 +12,16 @@ Adafruit_8x8matrix matrix4 = Adafruit_8x8matrix();
 Adafruit_8x8matrix matrix5 = Adafruit_8x8matrix();
 Adafruit_8x8matrix matrix7 = Adafruit_8x8matrix();
 
-String string = "Hello";
+//Initialize Real Time Clock
+#include <DS3231.h>
+#include <Time.h>
+DS3231 Clock;
+bool Century=false;
+bool h12;
+bool PM;
+byte ADay, AHour, AMinute, ASecond, ABits;
+bool ADy, A12h, Apm;
+
 
 void setup() {
   Serial.begin(9600);
@@ -27,6 +36,7 @@ void setup() {
   
 }
 
+//Weather images storage
 static const uint8_t PROGMEM
   sun_bmp[] =
   { B10010001,
@@ -39,35 +49,19 @@ static const uint8_t PROGMEM
     B10001001,};
 
 void loop() {
-  int strl = string.length();
-  int adjlength = (strl*8 + 16);
-  //Serial.println(adjlength);
   
-  //Left 7-seg, time display
-  matrix0.clear();
-  matrix0.print(1234, DEC);
-  matrix0.writeDisplay();
+  for(int dtcount = 0; dtcount<2; ++dtcount){
+      //Read RTC time and write to 7-seg 0
+      writeTime();
+
+      //Alternative between write date and temperature   
   
-  //Weather condition image led matrix
-  matrix7.clear();
-  matrix7.setTextSize(1);
-  matrix7.setRotation(1);
-  matrix7.setTextWrap(false);
-  matrix7.drawBitmap(0, 0, sun_bmp, 8, 8, LED_ON);
-  matrix7.writeDisplay();
-      
-      
-  for(int dtcount = 1; dtcount<=2; dtcount++){
-      if(dtcount = 1){
+      if(dtcount == 0){
         
-        //Right 7-seg date display:
-        matrix1.clear();
-        matrix1.writeDigitNum(0,3);
-        matrix1.writeDigitNum(3,2);
-        matrix1.writeDigitNum(4,1);
-        matrix1.writeDisplay();
+        writeDate();
       }
-      else if(dtcount = 2){
+        
+      else if(dtcount == 1){
         
         //Right 7-seg temp display:
         matrix1.clear();
@@ -75,11 +69,27 @@ void loop() {
         matrix1.writeDigitNum(3,8);
         matrix1.writeDigitRaw(2,0x10);
         matrix1.writeDisplay();
+        
       }
       Serial.println(dtcount);
       
+         
+  
+  
+      //Weather condition image led matrix
+      matrix7.clear();
+      matrix7.setTextSize(1);
+      matrix7.setRotation(1);
+      matrix7.setTextWrap(false);
+      matrix7.drawBitmap(0, 0, sun_bmp, 8, 8, LED_ON);
+      matrix7.writeDisplay();
         
-        
+      String string = "Hello";
+      int strl = string.length();
+      int adjlength = (strl*8 + 16);
+      //Serial.println(adjlength);  
+      
+      
       matrix2.clear();  matrix3.clear();  matrix4.clear();  matrix5.clear();
       matrix2.setTextSize(1);  matrix3.setTextSize(1);  matrix4.setTextSize(1);  matrix5.setTextSize(1);  
       matrix2.setRotation(3);  matrix3.setRotation(3);  matrix4.setRotation(3);  matrix5.setRotation(3); 
@@ -94,3 +104,5 @@ void loop() {
         
   }
 }
+
+
