@@ -24,6 +24,8 @@ bool PM;
 byte ADay, AHour, AMinute, ASecond, ABits;
 bool ADy, A12h, Apm;
 
+String temperature;
+
 
 void setup() {
   Serial.begin(9600);
@@ -65,12 +67,7 @@ void loop() {
         
       else if(dtcount == 1){
         
-        //Right 7-seg temp display:
-        matrix1.clear();
-        matrix1.writeDigitNum(1,7);
-        matrix1.writeDigitNum(3,8);
-        matrix1.writeDigitRaw(2,0x10);
-        matrix1.writeDisplay();
+        //getTemp();
         
       }
       Serial.println(dtcount);
@@ -90,7 +87,21 @@ void loop() {
        
       
       
-      
+      int strl = string.length();
+  int adjlength = (strl*8 + 16);
+  //Serial.println(adjlength); 
+  
+  matrix2.clear();  matrix3.clear();  matrix4.clear();  matrix5.clear();
+  matrix2.setTextSize(1);  matrix3.setTextSize(1);  matrix4.setTextSize(1);  matrix5.setTextSize(1);  
+  matrix2.setRotation(3);  matrix3.setRotation(3);  matrix4.setRotation(3);  matrix5.setRotation(3); 
+  matrix2.setTextWrap(false); matrix3.setTextWrap(false);  matrix4.setTextWrap(false);  matrix5.setTextWrap(false);
+  for(int i = 0; i>=-adjlength; i--){
+          matrix2.clear(); matrix3.clear();   matrix4.clear();  matrix5.clear();
+          matrix2.setCursor(i+24,0);  matrix3.setCursor(i+16,0);  matrix4.setCursor(i+8,0);  matrix5.setCursor(i,0);
+          matrix5.print(string);  matrix4.print(string);  matrix3.print(string);  matrix2.print(string);
+          matrix2.writeDisplay();  matrix3.writeDisplay();  matrix4.writeDisplay();  matrix5.writeDisplay();
+          delay(100);
+      }
         
   }
 }

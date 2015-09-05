@@ -12,11 +12,5 @@ void setup() {
 }
 
 void loop() {
-  gettemp();
-  getcond();
-  getforecast();
-  getDCULast();
-  getDCUNext();
   
-  delay(10000);
 }
