@@ -26,6 +26,7 @@ bool ADy, A12h, Apm;
 
 
 void setup() {
+  Bridge.begin();
   Serial.begin(9600);
   Serial.println("7 Segment Backpack Test");
   matrix0.begin(0x70);
@@ -69,7 +70,7 @@ void loop() {
         writeTemp();
         
       }
-      //Serial.println(dtcount);
+      Serial.println(dtcount);
       
          
   
