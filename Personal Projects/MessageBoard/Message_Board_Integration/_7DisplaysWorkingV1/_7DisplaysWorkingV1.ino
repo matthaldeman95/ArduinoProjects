@@ -54,44 +54,36 @@ void loop() {
   
   for(int dtcount = 0; dtcount<2; ++dtcount){
       //Read RTC time and write to 7-seg 0
-      writeTime();
+      
+      //writeTime();
 
       //Alternative between write date and temperature   
   
       if(dtcount == 0){
         
-        writeDate();
+        //writeDate();
       }
         
       else if(dtcount == 1){
-        
-        //Right 7-seg temp display:
-        matrix1.clear();
-        matrix1.writeDigitNum(1,7);
-        matrix1.writeDigitNum(3,8);
-        matrix1.writeDigitRaw(2,0x10);
-        matrix1.writeDisplay();
+
+        writeTemp();
         
       }
-      Serial.println(dtcount);
+      //Serial.println(dtcount);
       
          
   
   
       //Weather condition image led matrix
+      /*
       matrix7.clear();
       matrix7.setTextSize(1);
       matrix7.setRotation(1);
       matrix7.setTextWrap(false);
       matrix7.drawBitmap(0, 0, sun_bmp, 8, 8, LED_ON);
       matrix7.writeDisplay();
-        
-      String string = "Hello";
-       
-      
-      
-      
-        
+      */
+         
   }
 }
 

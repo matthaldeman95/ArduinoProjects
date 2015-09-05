@@ -1,6 +1,10 @@
 void writeTime(){
   matrix0.clear();
+  matrix0.drawColon(true);
   int hour=Clock.getHour(h12, PM);
+  if(hour > 12){
+    hour = hour - 12;
+  }
   float htens = (hour)/10;
   if(htens < 1){
      matrix0.writeDigitNum(0x01, hour);
