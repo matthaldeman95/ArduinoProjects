@@ -1,4 +1,19 @@
-String getDCULast(){
+#include <Wire.h> 
+
+#include <Process.h>
+
+void setup() {
+  Bridge.begin();
+  Serial.begin(9600);
+
+}
+
+void loop() {
+  String data = DCULast();
+  Serial.println(data);
+}
+
+String DCULast(){
   String DCULast = "";
   Serial.println("DCULast process initializing...");
   Process p;
@@ -9,7 +24,6 @@ String getDCULast(){
   }
   p.close();
   Serial.println("DCULast process complete");
-  Serial.println(DCULast);
   return DCULast;
-
 }
+

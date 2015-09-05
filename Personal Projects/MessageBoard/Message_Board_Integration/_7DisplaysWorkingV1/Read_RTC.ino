@@ -5,6 +5,10 @@ void writeTime(){
   if(hour > 12){
     hour = hour - 12;
   }
+  if(hour == 0){
+    hour = 12;
+  }
+  Serial.print(hour);
   float htens = (hour)/10;
   if(htens < 1){
      matrix0.writeDigitNum(0x01, hour);
@@ -18,6 +22,7 @@ void writeTime(){
   }
   
   int minute=Clock.getMinute();
+  Serial.print(":");  Serial.println(minute);
   float mtens = minute/10;
   if(mtens < 1){
     matrix0.writeDigitNum(0x03, 0);
@@ -36,6 +41,7 @@ void writeTime(){
 void writeDate(){
   matrix1.clear();
   float month = Clock.getMonth(Century);
+  Serial.print(month);  Serial.print("/");
   float montens = month/10;
   if(montens < 1){
     matrix1.writeDigitNum(0x00, month);
@@ -49,6 +55,7 @@ void writeDate(){
   }
   
   int date = Clock.getDate();
+  Serial.println(date);
   float dtens = date/10;
   if(dtens < 1){
     matrix1.writeDigitNum(0x03, date);
