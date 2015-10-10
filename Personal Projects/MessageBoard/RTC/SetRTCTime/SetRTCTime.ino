@@ -18,10 +18,10 @@ void setup()
     Serial.begin(9600);
     Wire.begin();
     Clock.setSecond(30);
-    Clock.setMinute(1);
-    Clock.setHour(16);
+    Clock.setMinute(59);
+    Clock.setHour(10);
     Clock.setDoW(5);
-    Clock.setDate(5);
+    Clock.setDate(26);
     Clock.setMonth(9);
     Clock.setYear(15);
 }

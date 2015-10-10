@@ -33,8 +33,6 @@ int getNumber(){
   Serial.println(F("Number process complete"));
   lcd.clear();  lcd.setCursor(0,0);  lcd.print(F("Getting number..."));
   lcd.setCursor(0,1);  lcd.print(F("Number success!"));
-  lcd.clear();  lcd.setCursor(0,0);  lcd.print(F("Number success..."));
-  lcd.setCursor(0,1);  lcd.print(num);
   Serial.println(num);
   int condnum = num.toInt();
   return condnum;
