@@ -9,6 +9,8 @@ void setup(){
 
 void loop(){
   int value = analogRead(A0);
+  value = value >> 2;
+  value *= 2;
   Serial.print("Sensor value: ");
   Serial.print(value);
   float voltage = value * (5.0 / 1023.0);

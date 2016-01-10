@@ -33,7 +33,7 @@ void setup() {
 
   display.begin();
   
-  //display.setContrast(50);
+  display.setContrast(50);
   
   display.clearDisplay();
   
